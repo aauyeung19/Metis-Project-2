@@ -15,12 +15,12 @@ A [csv](https://www.kaggle.com/gsnehaa21/federal-holidays-usa-19662020) of US Fe
 
 
 ## Technologies:
-BeautifulSoup and Selenium webscraping
-Linear Regression 
-Lasso Regression and LassoCV 
-Ridge Regression and RidgeCV 
-Sklearn 
-Pipelines with Polynomial Features 
+* BeautifulSoup and Selenium webscraping
+* Linear Regression 
+* Lasso Regression and LassoCV 
+* Ridge Regression and RidgeCV 
+* Sklearn 
+* Pipelines with Polynomial Features 
 
 ## Summary
 Although Lasso and Ridge were used separately to train data, the linear regression held to have the highest R2 value and lowest RMSE. My end model had an R2 value of 0.79 and a RMSE of about 48 million.  My model was also better at predicting lower grossing films.  Something I noted when looking at the holdout data was that the model cannot plan for boxoffice blockbusters and underpredicts their domestic gross. 
