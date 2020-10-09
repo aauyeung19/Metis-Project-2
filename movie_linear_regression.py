@@ -21,8 +21,9 @@ from sklearn.cluster import MeanShift, estimate_bandwidth
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import scipy.stats as stats
+import sys
 
-movie_df = pickle.load(open('processed_movie_df.pickle', 'rb'))
+movie_df = pickle.load(open('src/processed_movie_df.pickle', 'rb'))
 columns_to_drop = ['link_stub', 'desc', 'distr', 'opening', 'release',
                    'runtime', 'genres', 'gross_dom', 'gross_inter',
                    'gross_world', 'Director', 'Writer', 'Producer', 'Composer',
@@ -66,13 +67,6 @@ for train_index, test_index in tss2.split(X_train):
     X_train2, X_test = X_train.iloc[train_index, :], X_train.iloc[test_index, :]
     y_train2, y_test = y_train.iloc[train_index], y_train.iloc[test_index]
 
-TSS = TimeSeriesSplit(n_splits=3)
-for i, j in TSS.split(X):
-    print('Train Start: {}  End: {} '.format(i[0],i[-1]))
-    print('Test Start: {}  End: {} '.format(j[0],j[-1]))
-    
-
-    
 
 def Kfold_LR(X, y, n, rs=None):
     """
@@ -202,6 +196,13 @@ rdg_resids = rdg_preds - y_holdout
 lasso_preds = las.predict(X_h)
 lasso_resids = lasso_preds - y_holdout
 
+print('Linear Regression Scores')
+get_scores(y_holdout, lr_preds)
+print('\nRidgeCV Scores')
+get_scores(y_holdout, rdg_preds)
+print('\nLassoCV Scores')
+get_scores(y_holdout, lasso_preds)
+
 plt.figure()
 sns.distplot(lr_resids)
 plt.xlabel('Residuals')
@@ -237,6 +238,9 @@ ax.annotate('Higher Bump in Tail',
             arrowprops=dict(facecolor='black', shrink=0.05))
 
 plt.figure()
+plt.title('Linear Regression Residuals')
+plt.ylabel('Residuals')
+plt.xlabel('Predictions')
 sns.scatterplot(x=lr_preds, y=lr_resids)
 
 plt.figure()
