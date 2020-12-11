@@ -1,4 +1,4 @@
-# Project 2: Linear Regression
+# MovieMagic
 
 ## Objective:
 Build a model to predict Domestic Gross of films released in the United States
